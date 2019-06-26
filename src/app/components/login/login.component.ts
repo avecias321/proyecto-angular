@@ -26,55 +26,61 @@ export class LoginComponent implements OnInit {
 
 ngOnInit(){
   console.log('login.component cargado correctamente!!');
-
 }
-onSubmit(form){
-  console.log(this.user);
+  onSubmit(form){
+    console.log(this.user);
 
-  this._userService.signup(this.user).subscribe(
-    response => {
-      //token
-      if(response.status != 'error'){
-        this.status = 'succes';
-        this.token = response;
-        localStorage.setItem('token', this.token);
+    this._userService.signup(this.user).subscribe(
+      response => {
+        //token
+        if(response.status != 'error'){
+          this.status = 'success';
+          this.token = response;
+          localStorage.setItem('token', this.token);
+
+
+        //objeto usuario identificado
+        this._userService.signup(this.user, true).subscribe(
+          response => {
+            //console.log(response);
+            this.identity = response;
+            localStorage.setItem('identity', JSON.stringify(this.identity));
+
+            //redireccion
+            this._router.navigate(['home']);
+          },
+          error=>{
+            console.log(<any> error);
+          }
+        );
+
+      }else{
+        this.status = 'error';
       }
-
-      //objeto usuario identificado
-      this._userService.signup(this.user, true).subscribe(
-        response => {
-          //console.log(response);
-          this.identity = response;
-          localStorage.setItem('identity', JSON.stringify(this.identity));
-        },
-        error=>{
-          console.log(<any> error);
-        }
-      );
     },
-    error=>{
-      console.log(<any> error);
-    }
-  );
+      error=>{
+        console.log(<any> error);
+      }
+    );
 
-}
+  }
 
-logout(){
-  this._route.params.subscribe(params => {
-    let logout = +params['sure'];
+  logout(){
+    this._route.params.subscribe(params => {
+      let logout = +params['sure'];
 
-    if(logout == 1){
-      localStorage.removeItem('identity');
-      localStorage.removeItem('token');
+      if(logout == 1){
+        localStorage.removeItem('identity');
+        localStorage.removeItem('token');
 
-      this.identity = null;
-      this.token = null;
+        this.identity = null;
+        this.token = null;
 
-      //redireccion
-      this._router.navigate(['home']);
+        //redireccion
+        this._router.navigate(['home']);
 
-    }
-  });
+      }
+    });
 
-}
-}
+  }
+  }

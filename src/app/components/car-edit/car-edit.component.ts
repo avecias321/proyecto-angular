@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User } from '../../models/user';
-import { UserService } from '../../services/user.service';
-import { Car } from '../../models/car';
-import { CarService } from "../../services/car.service";
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {User} from '../../models/user';
+import {UserService} from '../../services/user.service';
+import {Car} from '../../models/car';
+import {CarService} from "../../services/car.service";
 
 @Component({
   selector: 'app-car-edit',
@@ -22,58 +22,60 @@ export class CarEditComponent implements OnInit {
     private _userService: UserService,
     private _carService: CarService
 
-){
+) {
   this.token = this._userService.getToken();
-
 }
 
-ngOnInit() {
+ngOnInit()
+{
   this._route.params.subscribe(params => {
     let id = +params['id'];
     this.getCar(id);
   });
 }
 
-getCar(id){
+getCar(id)
+{
   this._carService.getCar(id).subscribe(
-    response =>{
-      if( status == 'success'){
+    response => {
+      if (status == 'success') {
         this.car = response.car;
         this.page_title = 'Editar: ' + this.car.title;
-      }else{
+      } else {
         this._router.navigate(['inicio']);
       }
     },
     error => {
-      console.log(<any>error);
+      console.log( < any > error
+    )
+      ;
     }
   );
 
 }
 
-  onSubmit(form){
-    console.log(this.car.id);
-    this._carService.update(this.token, this.car, this.car.id).subscribe(
-      response => {
-        if(response.status == 'success'){
-          this.status_car = 'success';
-          this.car = response.car;
-          this._router.navigate(['/coche', this.car.id]);
+onSubmit(form)
+{
+  console.log(this.car.id);
+  this._carService.update(this.token, this.car, this.car.id).subscribe(
+    response => {
+      if (response.status == 'success') {
+        this.status_car = 'success';
+        this.car = response.car;
+        this._router.navigate(['/coche', this.car.id]);
 
-        }else{
-          this.status_car = 'error';
-
-        }
-      },
-      error => {
-        console.log(<any>error);
+      } else {
         this.status_car = 'error';
 
       }
-    );
+    },
+    error => {
+      console.log( < any > error
+    )
+      ;
+      this.status_car = 'error';
 
+    }
+  );
 }
-
 }
-
-

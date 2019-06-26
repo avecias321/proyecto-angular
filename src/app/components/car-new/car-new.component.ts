@@ -19,13 +19,13 @@ export class CarNewComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-  private _router: Router,
-  private _userService: UserService,
-  private _carService: CarService
+    private _router: Router,
+    private _userService: UserService,
+    private _carService: CarService
 ){
-  this.page_title = 'Crear nuevo coche';
-  this.identity = this._userService.getIdentity();
-  this.token = this._userService.getToken();
+    this.page_title = 'Crear nuevo coche';
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
 }
 
 ngOnInit(){
