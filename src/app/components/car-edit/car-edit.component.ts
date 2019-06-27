@@ -38,7 +38,7 @@ getCar(id)
 {
   this._carService.getCar(id).subscribe(
     response => {
-      if (status == 'success') {
+      if (response.status == 'success') {
         this.car = response.car;
         this.page_title = 'Editar: ' + this.car.title;
       } else {
@@ -56,7 +56,6 @@ getCar(id)
 
 onSubmit(form)
 {
-  console.log(this.car.id);
   this._carService.update(this.token, this.car, this.car.id).subscribe(
     response => {
       if (response.status == 'success') {
@@ -65,6 +64,8 @@ onSubmit(form)
         this._router.navigate(['/coche', this.car.id]);
 
       } else {
+
+        console.log(<any> error);
         this.status_car = 'error';
 
       }

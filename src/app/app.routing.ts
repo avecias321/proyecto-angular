@@ -12,7 +12,7 @@ import { CarDetailComponent } from './components/car-detail/car-detail.component
 
 
 const appRoutes: Routes = [
-  {path:'', component: DefaultComponent},
+  {path:' ', component: DefaultComponent},
   {path:'inicio', component: DefaultComponent},
   {path:'login', component: LoginComponent},
   {path:'logout/:sure', component: LoginComponent},

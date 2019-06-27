@@ -17,22 +17,24 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-  private _router: Router,
-  private _userService: UserService
-){
-  this.title = 'Identificate';
-  this.user = new User(1, 'ROLE_USER', '', '', '', '');
-}
+    private _router: Router,
+    private _userService: UserService
+  ){
+    this.title = 'Identificate';
+    this.user = new User(1, 'ROLE_USER', '', '', '', '');
+  }
 
-ngOnInit(){
-  console.log('login.component cargado correctamente!!');
-}
+  ngOnInit(){
+    console.log('login.component cargado correctamente!!');
+  }
   onSubmit(form){
     console.log(this.user);
 
     this._userService.signup(this.user).subscribe(
       response => {
         //token
+        console.log(this.response);
+
         if(response.status != 'error'){
           this.status = 'success';
           this.token = response;

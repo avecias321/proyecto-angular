@@ -15,21 +15,21 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-  private _router: Router,
-  private _userService: UserService
+    private _router: Router,
+    private _userService: UserService
 
-){
-  this.title = 'Registrate';
-  this.user = new User(1, 'ROLE_USER', '', '', '', '');
-}
+  ){
+    this.title = 'Registrate';
+    this.user = new User(1, 'ROLE_USER', '', '', '', '');
+  }
 
-ngOnInit(){
-  console.log('register.component cargado correctamente');
-}
+  ngOnInit(){
+    console.log('register.component cargado correctamente');
+  }
 
-onSubmit(form)
-{
-  this._userService.register(this.user).subscribe(
+  onSubmit(form)
+  {
+    this._userService.register(this.user).subscribe(
     response => {
 
       if (response.status == 'success') {
@@ -38,7 +38,7 @@ onSubmit(form)
         // vaciar el formulario
 
         this.user = new User(1, 'ROLE_USER', '', '', '', '');
-        form.reset();
+          form.reset();
 
       }else{
         this.status = 'error';
@@ -46,9 +46,8 @@ onSubmit(form)
     },
     error => {
       console.log( < any > error
-    )
-      ;
+      );
     }
-  );
-}
+    );
+  }
 }
